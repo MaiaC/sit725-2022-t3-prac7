@@ -1,18 +1,3 @@
-// const cardList = [
-//   {
-//     title: "Guatemala",
-//     image: "images/guatemala.jpeg",
-//     link: "About Guatemala",
-//     desciption: "Demo desciption about Guatemala",
-//   },
-//   {
-//     title: "Galapagos",
-//     image: "images/galapagos.jpeg",
-//     link: "About Galapagos",
-//     desciption: "Demo desciption about Galapagos",
-//   },
-// ];
-
 const getProjects = () => {
   $.get("/api/projects", (response) => {
     if (response.statusCode == 200) {
@@ -27,11 +12,25 @@ const clickMe = () => {
 
 const submitForm = () => {
   let formData = {};
-  formData.first_name = $("#first_name").val();
-  formData.last_name = $("#last_name").val();
-  formData.password = $("#password").val();
-  formData.email = $("#email").val();
+  formData.title = $("#title").val();
+  formData.image = $("#image").val();
+  formData.link = $("#link").val();
+  formData.description = $("#description").val();
   console.log("Form Data Submitted: ", formData);
+  addProjectToApp(formData);
+};
+
+// ajax function
+const addProjectToApp = (project) => {
+  $.ajax({
+    url: "/api/projects",
+    data: project,
+    type: "POST",
+    success: (result) => {
+      alert(result.message);
+      location.reload(); // automatically reloads the page
+    },
+  });
 };
 
 const addCards = (items) => {
@@ -52,7 +51,7 @@ const addCards = (items) => {
       item.title +
       '<i class="material-icons right">close</i></span>' +
       '<p class="card-text">' +
-      item.desciption +
+      item.description +
       "</p>" +
       " </div> </div> </div> ";
     $("#card-section").append(itemToAppend);

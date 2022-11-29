@@ -29,6 +29,15 @@ const createCollection = (collectionName) => {
   });
 };
 
+// insert project
+const insertProjects = (project, callback) => {
+  projectCollection.insert(project, callback);
+};
+
+const getProjects = (callback) => {
+  projectCollection.find({}).toArray(callback);
+};
+
 const cardList = [
   {
     title: "Guatemala",
@@ -45,7 +54,31 @@ const cardList = [
 ];
 
 app.get("/api/projects", (req, res) => {
-  res.json({ statusCode: 200, data: cardList, message: "Success" });
+  //res.json({ statusCode: 200, data: cardList, message: "Success" });
+  getProjects((err, result) => {
+    if (err) {
+      res.json({ statusCode: 400, message: err });
+    } else {
+      res.json({ statusCode: 200, message: "success", data: result });
+    }
+  });
+});
+
+// post api
+app.post("/api/projects", (req, res) => {
+  console.log("New project added", req.body);
+  var newProject = req.body;
+  insertProjects(newProject, (err, result) => {
+    if (err) {
+      res.json({ statusCode: 400, message: err });
+    } else {
+      res.json({
+        statusCode: 200,
+        message: "project successfully added",
+        data: result,
+      });
+    }
+  });
 });
 
 app.listen(port, () => {
