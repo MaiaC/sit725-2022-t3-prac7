@@ -4,21 +4,26 @@ var port = process.env.port || 3000;
 
 app.use(express.static(__dirname + "/public"));
 app.use(express.json());
-app.use(express.urlencoded({ extends: false }));
+app.use(express.urlencoded({ extended: false }));
 
-// const addNumbers = (num1, num2) => {
-//   var number1 = parseInt(num1);
-//   var number2 = parseInt(num2);
-//   var result = number1 + number2;
-//   return result;
-// };
+const cardList = [
+  {
+    title: "Guatemala",
+    image: "images/guatemala.jpeg",
+    link: "About Guatemala",
+    desciption: "Demo desciption about Guatemala",
+  },
+  {
+    title: "Galapagos",
+    image: "images/galapagos.jpeg",
+    link: "About Galapagos",
+    desciption: "Demo desciption about Galapagos",
+  },
+];
 
-// app.get("/addTwoNumbers", (req, res) => {
-//   var number1 = req.query.number1;
-//   var number2 = req.query.number2;
-//   var result = addNumbers(number1, number2);
-//   res.json({ statusCode: 200, data: result, message: "Success" });
-// });
+app.get("/api/projects", (req, res) => {
+  res.json({ statusCode: 200, data: cardList, message: "Success" });
+});
 
 app.listen(port, () => {
   console.log("App listening to: http://localhost:" + port);

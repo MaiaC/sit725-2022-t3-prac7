@@ -1,17 +1,25 @@
-const cardList = [
-  {
-    title: "Guatemala",
-    image: "images/guatemala.jpeg",
-    link: "About Guatemala",
-    desciption: "Demo desciption about Guatemala",
-  },
-  {
-    title: "Galapagos",
-    image: "images/galapagos.jpeg",
-    link: "About Galapagos",
-    desciption: "Demo desciption about Galapagos",
-  },
-];
+// const cardList = [
+//   {
+//     title: "Guatemala",
+//     image: "images/guatemala.jpeg",
+//     link: "About Guatemala",
+//     desciption: "Demo desciption about Guatemala",
+//   },
+//   {
+//     title: "Galapagos",
+//     image: "images/galapagos.jpeg",
+//     link: "About Galapagos",
+//     desciption: "Demo desciption about Galapagos",
+//   },
+// ];
+
+const getProjects = () => {
+  $.get("/api/projects", (response) => {
+    if (response.statusCode == 200) {
+      addCards(response.data);
+    }
+  });
+};
 
 const clickMe = () => {
   alert("Thanks for clicking me. Hope you have a nice day!");
@@ -56,6 +64,6 @@ $(document).ready(function () {
   $("#formSubmit").click(() => {
     submitForm();
   });
-  addCards(cardList);
+  getProjects();
   $(".modal").modal();
 });
