@@ -45,4 +45,20 @@ const retrieveProjects = (req, res) => {
   });
 };
 
-module.exports = { retrieveProjects, createProjects };
+// delete project
+const deleteProject = (req, res) => {
+  console.log("Project deleted", req.body.id);
+  projectModel.removeProject(req.body.id, (err, result) => {
+    if (err) {
+      res.json({ statusCode: 400, message: err });
+    } else {
+      res.json({
+        statusCode: 200,
+        message: "project successfully deleted",
+        data: result,
+      });
+    }
+  });
+};
+
+module.exports = { retrieveProjects, createProjects, deleteProject };

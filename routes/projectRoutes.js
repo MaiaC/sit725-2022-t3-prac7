@@ -47,4 +47,8 @@ router.post("/", (req, res) => {
   //   });
 });
 
+router.delete("/", (req, res) => {
+  controller.projectController.deleteProject(req, res);
+});
+
 module.exports = router;

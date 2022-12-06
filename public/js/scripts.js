@@ -33,6 +33,19 @@ const addProjectToApp = (project) => {
   });
 };
 
+// ajax function
+const removeProjectFromApp = (projectId) => {
+  $.ajax({
+    url: "/api/projects",
+    data: { id: projectId },
+    type: "DELETE",
+    success: (result) => {
+      alert(result.message);
+      location.reload(); // automatically reloads the page
+    },
+  });
+};
+
 const addCards = (items) => {
   items.forEach((item) => {
     let itemToAppend =
@@ -46,6 +59,10 @@ const addCards = (items) => {
       '<i class="material-icons right">more_vert</i></span><p><a href="#">' +
       item.link +
       "</a></p></div>" +
+      '<div class="card-action"> ' +
+      '<a class="waves-effect waves-light btn delete-btn" data-record-id="' +
+      item._id +
+      '" data-target=""><i class="material-icons left">delete</i>Delete</a></div>' +
       '<div class="card-reveal">' +
       '<span class="card-title grey-text text-darken-4">' +
       item.title +
@@ -54,7 +71,17 @@ const addCards = (items) => {
       item.description +
       "</p>" +
       " </div> </div> </div> ";
+
     $("#card-section").append(itemToAppend);
+  });
+  addDeleteFunction();
+};
+
+const addDeleteFunction = () => {
+  document.querySelectorAll(".delete-btn").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      removeProjectFromApp(event.target.getAttribute("data-record-id"));
+    });
   });
 };
 

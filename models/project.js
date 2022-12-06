@@ -1,3 +1,4 @@
+let mongo = require("mongodb");
 let client = require("../dbConnect");
 let projectCollection;
 
@@ -13,7 +14,13 @@ const getProjects = (callback) => {
   projectCollection.find({}).toArray(callback);
 };
 
+// delete project
+const removeProject = (projectId, callback) => {
+  projectCollection.remove({ _id: new mongo.ObjectId(projectId) }, callback);
+};
+
 module.exports = {
   insertProjects,
   getProjects,
+  removeProject,
 };
