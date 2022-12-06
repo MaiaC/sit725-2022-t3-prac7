@@ -19,7 +19,7 @@ let controller = require("../controller");
 // get api
 
 router.get("/", (req, res) => {
-  controller.projectController.createProjects(req, res);
+  controller.projectController.retrieveProjects(req, res);
   //   getProjects((err, result) => {
   //     if (err) {
   //       res.json({ statusCode: 400, message: err });
@@ -31,7 +31,7 @@ router.get("/", (req, res) => {
 
 // post api
 router.post("/", (req, res) => {
-  controller.projectController.retrieveProjects(req, res);
+  controller.projectController.createProjects(req, res);
   //   console.log("New project added", req.body);
   //   var newProject = req.body;
   //   insertProjects(newProject, (err, result) => {
